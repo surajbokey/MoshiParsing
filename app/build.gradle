@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+ext.versions = [
+        minSdk        : 19,
+        compileSdk    : 27,
+        autoValue     : '1.5.2',
+        dagger        : '2.16',
+        supportLib    : '27.1.1',
+        playServices  : '7.8.0',
+        retrofit      : '2.3.0',
+        okHttp        : '3.9.1',
+        autoValueMoshi: '7423eba2bf',
+]
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        applicationId "com.surajbokey.moshiparsing"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    compileOnly(
+            "com.google.auto.value:auto-value:$versions.autoValue",
+            "com.github.saketme:auto-value-moshi:$versions.autoValueMoshi",  // Custom fork of auto-value-moshi that initializes Optional fields as Optional.empty().
+    )
+    annotationProcessor(
+            "com.google.auto.value:auto-value:$versions.autoValue",
+            "com.github.saketme:auto-value-moshi:$versions.autoValueMoshi",
+            "com.ryanharter.auto.value:auto-value-parcel:0.2.6",
+    )
+    testImplementation(
+            'junit:junit:4.12',
+            'org.mockito:mockito-core:2.11.0',
+    )
+    implementation(
+
+            "com.android.support:appcompat-v7:$versions.supportLib",
+            'com.android.support:multidex:1.0.2',
+            'io.reactivex.rxjava2:rxjava:2.1.9',
+            'io.reactivex.rxjava2:rxandroid:2.0.1',
+            'com.jakewharton.timber:timber:4.7.0',
+            "com.google.dagger:dagger:$versions.dagger",
+            "com.squareup.retrofit2:retrofit:$versions.retrofit",
+            "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+            "com.squareup.retrofit2:converter-moshi:$versions.retrofit",
+            "com.squareup.okhttp3:okhttp:$versions.okHttp",
+            "com.squareup.okhttp3:logging-interceptor:$versions.okHttp",
+            'com.squareup.moshi:moshi:1.5.0',
+            'com.serjltt.moshi:moshi-lazy-adapters:2.1',
+    )
+
+}
